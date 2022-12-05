@@ -1,0 +1,22 @@
+<h2>By Country</h2>
+<hr />
+<div class="row">
+  <div class="col">
+    <app-country-input
+      (onEnter)="search($event)"
+      (onDebounce)="suggestions($event)"
+      placeholder="Search by country..."
+    ></app-country-input>
+  </div>
+</div>
+
+<hr />
+<div class="alert alert-danger" *ngIf="isError">
+  No se encontró nada con el término ''{{ term }}''
+</div>
+
+<div class="row">
+  <div class="col">
+    <app-table [countries]="countries"></app-table>
+  </div>
+</div>
