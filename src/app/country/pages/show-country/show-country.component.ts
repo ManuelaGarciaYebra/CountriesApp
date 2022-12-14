@@ -10,7 +10,10 @@ import { CountryService } from '../../services/country.service';
   styleUrls: ['./show-country.component.css'],
 })
 export class ShowCountryComponent implements OnInit {
-  public country!: Country;
+
+
+   country!: Country;
+   
   constructor(
     private activatedRoute: ActivatedRoute,
     private countryService: CountryService
@@ -24,14 +27,6 @@ export class ShowCountryComponent implements OnInit {
       .subscribe((country) => {
         this.country = country;
       });
-    // this.activatedRoute.params.subscribe(
-    //   ({ id }) => {
-    //     console.log(id);
-    //     this.countryService
-    //       .searchCountryById(id)
-    //       .subscribe((country) => console.log(country));
-    //   }
-    //id comes from params.id, the params that we defined in routing
-    // );
+
   }
 }
