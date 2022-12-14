@@ -9,20 +9,20 @@ import { debounceTime, Subject } from 'rxjs';
 export class CountryInputComponent implements OnInit {
   @Output() onEnter: EventEmitter<string> = new EventEmitter();
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
-  public debouncer: Subject<string> = new Subject();
+  debouncer: Subject<string> = new Subject();
   @Input() placeholder: string = '';
-  public term: string = '';
+  term: string = '';
 
   ngOnInit(): void {
     this.debouncer.pipe(debounceTime(300)).subscribe((termValue) => {
       this.onDebounce.emit(termValue);
     });
   }
-  public search() {
+  search() {
     this.onEnter.emit(this.term);
     this.debouncer;
   }
-  public pressKey() {
+  pressKey() {
     this.debouncer.next(this.term);
   }
 }

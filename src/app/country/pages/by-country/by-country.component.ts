@@ -8,12 +8,14 @@ import { CountryService } from '../../services/country.service';
   styleUrls: ['./by-country.component.css'],
 })
 export class ByCountryComponent {
-  public isError: boolean = false;
-  public term: string = '';
-  public countries: Country[] = [];
-  public placeholder: string = 'Search by capital...';
+  isError: boolean = false;
+  term: string = '';
+  countries: Country[] = [];
+  suggestedCountries: Country[] = [];
+  placeholder: string = 'Search by capital...';
+  showSuggestions: boolean = false;
   constructor(private countryService: CountryService) {}
-  public search(term: string) {
+  search(term: string) {
     this.term = term;
     this.isError = false;
     this.countryService.searchCountry(term).subscribe(
@@ -27,7 +29,17 @@ export class ByCountryComponent {
       }
     );
   }
-  public suggestions(term: string) {
+  suggestions(term: string) {
     this.isError = false;
+    this.term = term;
+    this.showSuggestions = true;
+    this.countryService.searchCountry(term).subscribe(
+      (countries) => (this.suggestedCountries = countries.splice(0, 3))
+      // (err) => (this.suggestedCountries = [])
+    );
+  }
+
+  searchSuggestions(term: string) {
+    this.search(term);
   }
 }
